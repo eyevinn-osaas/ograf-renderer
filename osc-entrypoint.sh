@@ -30,10 +30,17 @@ export OGRAF_GRAPHICS_DIR="${OGRAF_GRAPHICS_DIR:-/data/graphics}"
 export OGRAF_OUTPUT_DIR="${OGRAF_OUTPUT_DIR:-/data/renders}"
 
 if [ "$(id -u)" = "0" ]; then
-	# A freshly mounted volume is owned by root.
+	# A freshly mounted volume is owned by root. The volume is writable by the node user between
+	# restarts, so never follow a symlink here: root would chown whatever it points at.
+	for dir in /data "$OGRAF_GRAPHICS_DIR" "$OGRAF_OUTPUT_DIR"; do
+		if [ -L "$dir" ]; then
+			echo "[osc-entrypoint] $dir is a symbolic link. Refusing to start." >&2
+			exit 1
+		fi
+	done
 	mkdir -p "$OGRAF_GRAPHICS_DIR" "$OGRAF_OUTPUT_DIR"
-	chown node:node "$OGRAF_GRAPHICS_DIR" "$OGRAF_OUTPUT_DIR"
-	[ -d /data ] && chown node:node /data
+	chown -h node:node "$OGRAF_GRAPHICS_DIR" "$OGRAF_OUTPUT_DIR"
+	if [ -d /data ]; then chown -h node:node /data; fi
 	export HOME=/home/node
 	exec setpriv --reuid=node --regid=node --init-groups /usr/bin/tini -- "$@"
 fi
