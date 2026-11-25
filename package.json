@@ -1,0 +1,47 @@
+{
+  "name": "ograf-renderer",
+  "version": "0.1.0",
+  "description": "Headless, non-realtime renderer for EBU OGraf graphics: transparent PNG sequences and video, as a CLI or an HTTP service in Docker",
+  "license": "Apache-2.0",
+  "author": "Yle",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "ograf-renderer": "bin/ograf-renderer.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "runtime/",
+    "ui/",
+    "LICENSE",
+    "LICENSES/",
+    "NOTICE"
+  ],
+  "scripts": {
+    "start": "node bin/ograf-renderer.js serve",
+    "test": "node --test --test-concurrency=1 \"test/*.test.js\"",
+    "test:unit": "node --test \"test/core.test.js\" \"test/unit.test.js\" \"test/licence-headers.test.js\""
+  },
+  "keywords": [
+    "ograf",
+    "ebu",
+    "broadcast",
+    "graphics",
+    "renderer",
+    "headless"
+  ],
+  "dependencies": {
+    "pngjs": "^7.0.0",
+    "puppeteer-core": "^25.18.1"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.18.1"
+  }
+}

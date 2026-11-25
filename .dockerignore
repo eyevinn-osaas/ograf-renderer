@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Yle
+# SPDX-License-Identifier: Apache-2.0
+
+node_modules
+data
+out
+.tmp
+.git
+*.log
+.env

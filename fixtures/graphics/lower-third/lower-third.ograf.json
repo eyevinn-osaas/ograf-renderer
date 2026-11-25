@@ -1,0 +1,30 @@
+{
+	"$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+	"id": "ograf-nle-lower-third",
+	"version": "1.0.0",
+	"name": "Lower third",
+	"description": "Name and title lower third. Reference graphic for ograf-nle: no dependencies, fully non-realtime.",
+	"main": "graphic.mjs",
+	"author": { "name": "Yle" },
+	"supportsRealTime": true,
+	"supportsNonRealTime": true,
+	"stepCount": 1,
+	"actionDurations": [
+		{ "type": "playAction", "duration": 900 },
+		{ "type": "updateAction", "duration": 0 },
+		{ "type": "stopAction", "duration": 700 }
+	],
+	"renderRequirements": [
+		{ "resolution": { "width": { "exact": 1920 }, "height": { "exact": 1080 } } },
+		{ "resolution": { "width": { "exact": 1080 }, "height": { "exact": 1920 } } },
+		{ "resolution": { "width": { "exact": 1080 }, "height": { "exact": 1080 } } }
+	],
+	"thumbnails":[{ "file": "thumbnail.png", "resolution": { "width": 640, "height": 360 } }],
+	"schema": {
+		"type": "object",
+		"properties": {
+			"name": { "type": "string", "title": "Name", "default": "Anna Virtanen", "gddType": "single-line" },
+			"title": { "type": "string", "title": "Title", "default": "Reporter", "gddType": "single-line" }
+		}
+	}
+}

@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+SPDX-FileCopyrightText: 2026 Yle
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="referrer" content="no-referrer" />
+		<title>OGraf Editor</title>
+		<link rel="stylesheet" href="./editor.css" />
+		<script type="module" src="./editor.js"></script>
+	</head>
+	<body>
+		<header class="topbar">
+			<button id="graphicBtn" class="graphic-btn" title="Change graphic">
+				<span class="graphic-name" id="graphicName">No graphic selected</span>
+				<span class="graphic-meta" id="graphicMeta"></span>
+				<span class="chev">▾</span>
+			</button>
+			<div class="spacer"></div>
+			<span class="pill" id="titlePill"></span>
+			<span class="pill" id="formatPill"></span>
+			<span class="pill" id="durationPill"></span>
+		</header>
+
+		<div id="banner" class="banner" hidden></div>
+
+		<main class="layout">
+			<section class="preview-col">
+				<div class="stage" id="stage">
+					<div class="viewport bg-checker" id="viewport">
+						<div class="frames" id="frames"></div>
+						<svg class="safe" id="safe" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="display: none">
+							<rect x="67.2" y="37.8" width="1785.6" height="1004.4" />
+							<rect x="96" y="54" width="1728" height="972" />
+						</svg>
+					</div>
+					<div class="loading" id="loading" hidden>Loading graphic…</div>
+				</div>
+				<div class="transport">
+					<button class="icon" id="toStart" title="Start (Home)">⏮</button>
+					<button class="icon" id="stepBack" title="Previous frame (←)">◀</button>
+					<button class="icon play" id="play" title="Play/Pause (Space)">▶</button>
+					<button class="icon" id="stepFwd" title="Next frame (→)">▶︎|</button>
+					<button class="icon" id="toEnd" title="End (End)">⏭</button>
+					<div class="scrub-wrap">
+						<input type="range" id="scrub" min="0" max="0" value="0" step="1" aria-label="Position" />
+						<div class="out-marker" id="outMarker" hidden><span>OUT</span></div>
+						<div class="step-markers" id="stepMarkers"></div>
+					</div>
+					<span class="tc" id="tc">00:00:00:00</span>
+					<button class="secondary small" id="setStep" title="Move the nearest step (continue) to the playhead (C)" hidden>Set continue</button>
+					<button class="secondary small" id="setOut" title="Start the out-animation at the playhead (O)">Set out ⇥</button>
+				</div>
+				<div class="view-opts">
+					<label
+						>Background
+						<select id="bg">
+							<option value="checker">Checkerboard</option>
+							<option value="black">Black</option>
+							<option value="grey">Grey</option>
+							<option value="white">White</option>
+						</select>
+					</label>
+					<label class="checkbox"><input type="checkbox" id="safeToggle" /> Safe areas (EBU R95)</label>
+					<span class="spacer"></span>
+					<span class="muted small" id="scheduleInfo"></span>
+				</div>
+			</section>
+
+			<aside class="side">
+				<div class="side-scroll">
+					<h2>Content</h2>
+					<div id="form"><p class="help">Choose a graphic to start.</p></div>
+
+					<h2>Output</h2>
+					<div class="form-field">
+						<label for="format">Format</label>
+						<select id="format"></select>
+					</div>
+					<div class="form-field">
+						<label for="duration">Length (frames)</label>
+						<div class="row">
+							<input id="duration" type="number" min="1" step="1" />
+							<span class="muted small" id="durationTc"></span>
+						</div>
+					</div>
+					<div class="form-field">
+						<label for="outFrame">Out-animation starts at (frame)</label>
+						<div class="row">
+							<input id="outFrame" type="number" min="0" step="1" />
+							<span class="muted small" id="outTc"></span>
+							<label class="checkbox inline"><input type="checkbox" id="outAuto" /> Auto</label>
+						</div>
+						<p class="help">Auto: the out-animation ends on the last frame. To set your own, press <b>O</b> or <b>Set out</b> at the playhead, or type a frame.</p>
+					</div>
+					<div class="form-field" id="stepsField" hidden>
+						<label>Steps (continue)</label>
+						<div id="stepRows"></div>
+						<p class="help">This graphic has several steps. Each step starts with a "continue" at its frame. Auto spaces them evenly before the out-animation. Press <b>C</b> or <b>Set continue</b> to move the nearest step to the playhead.</p>
+					</div>
+				</div>
+
+				<footer class="actions">
+					<div class="status" id="status"></div>
+					<div class="buttons">
+						<button class="secondary" id="cancel">Cancel</button>
+						<button class="primary" id="save" disabled>Save &amp; Render</button>
+					</div>
+				</footer>
+			</aside>
+		</main>
+
+		<div class="modal" id="picker" hidden>
+			<div class="modal-card">
+				<div class="modal-head">
+					<h2>Choose a graphic</h2>
+					<input type="search" id="pickerSearch" placeholder="Search…" aria-label="Search graphics" />
+					<button class="icon" id="pickerClose" title="Close (Esc)">×</button>
+				</div>
+				<div class="libs" id="pickerCards"></div>
+			</div>
+		</div>
+
+		<div class="modal" id="finished" hidden>
+			<div class="modal-card narrow">
+				<h2 id="finishedTitle"></h2>
+				<p id="finishedText" class="muted"></p>
+				<div class="progress" id="progress" hidden><div id="progressBar"></div></div>
+				<div class="buttons">
+					<button class="primary" id="finishedClose" hidden>Close</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

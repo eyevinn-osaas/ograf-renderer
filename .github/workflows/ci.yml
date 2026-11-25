@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: 2026 Yle
+# SPDX-License-Identifier: Apache-2.0
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    env:
+      # Ubuntu 24.04 restricts the user namespaces Chromium's sandbox needs.
+      OGRAF_CHROME_SANDBOX: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-liberation
+      - run: npm ci
+      - run: npm test
+
+  docker:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t ograf-renderer:ci .
+      - name: Tests inside the image
+        run: docker run --rm -v "$PWD:/src:ro" --tmpfs /tmp --shm-size=1g ograf-renderer:ci sh /src/tools/test-in-image.sh

@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Yle
+# SPDX-License-Identifier: Apache-2.0
+
+# Local try-out: docker compose up --build, then http://localhost:8080/health
+# The sample graphics are mounted read-only as the library; renders go to a named volume.
+
+services:
+  ograf-renderer:
+    build: .
+    image: ograf-renderer:latest
+    ports:
+      - "8080:8080"
+    environment:
+      OGRAF_API_TOKEN: ${OGRAF_API_TOKEN:-change-me}
+      OGRAF_CONCURRENCY: "1"
+      OGRAF_RETENTION_HOURS: "24"
+      OGRAF_PUBLIC_URL: http://localhost:8080
+      # OGRAF_EDITOR_ORIGINS: http://localhost:3000        # your application, for the editor
+      # OGRAF_WEBHOOK_ALLOW: http://host.docker.internal:3000
+      # OGRAF_WEBHOOK_SECRET: change-me-too
+      # OGRAF_NETWORK: allow      # let graphics load remote fonts/resources
+      # OGRAF_ALLOW_UPLOADS: "false"
+    volumes:
+      - ./fixtures/graphics:/data/graphics:ro
+      - renders:/data/renders
+    shm_size: "1gb"
+    restart: unless-stopped
+
+volumes:
+  renders:

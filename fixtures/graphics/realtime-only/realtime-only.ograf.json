@@ -1,0 +1,47 @@
+{
+	"$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+	"id": "ograf-nle-realtime-only",
+	"version": "1.0.0",
+	"name": "Realtime-only test graphic",
+	"description": "Test fixture: live-style template (CSS transitions, timers, animation frames) with no non-realtime support.",
+	"main": "graphic.mjs",
+	"author": {
+		"name": "Yle"
+	},
+	"supportsRealTime": true,
+	"supportsNonRealTime": false,
+	"actionDurations": [
+		{
+			"type": "playAction",
+			"duration": 900
+		},
+		{
+			"type": "stopAction",
+			"duration": 500
+		}
+	],
+	"schema": {
+		"type": "object",
+		"properties": {
+			"name": {
+				"type": "string",
+				"title": "Name",
+				"default": "Realtime only"
+			},
+			"title": {
+				"type": "string",
+				"title": "Title",
+				"default": "Live template"
+			}
+		}
+	},
+	"thumbnails": [
+		{
+			"file": "thumbnail.png",
+			"resolution": {
+				"width": 640,
+				"height": 360
+			}
+		}
+	]
+}

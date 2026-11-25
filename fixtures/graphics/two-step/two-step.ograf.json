@@ -1,0 +1,51 @@
+{
+	"$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+	"id": "ograf-nle-two-step",
+	"version": "1.0.0",
+	"name": "Two-step lower third",
+	"description": "Step 1 shows the name, step 2 (continue) adds the title. Reference graphic for multi-step timing.",
+	"main": "graphic.mjs",
+	"author": {
+		"name": "Yle"
+	},
+	"supportsRealTime": true,
+	"supportsNonRealTime": true,
+	"stepCount": 2,
+	"actionDurations": [
+		{
+			"type": "playAction",
+			"duration": 700
+		},
+		{
+			"type": "stopAction",
+			"duration": 600
+		}
+	],
+	"v_bmd": {
+		"duration": 8
+	},
+	"schema": {
+		"type": "object",
+		"properties": {
+			"name": {
+				"type": "string",
+				"title": "Name",
+				"default": "Anna Virtanen"
+			},
+			"title": {
+				"type": "string",
+				"title": "Title (step 2)",
+				"default": "Reporter, Helsinki"
+			}
+		}
+	},
+	"thumbnails": [
+		{
+			"file": "thumbnail.png",
+			"resolution": {
+				"width": 640,
+				"height": 360
+			}
+		}
+	]
+}

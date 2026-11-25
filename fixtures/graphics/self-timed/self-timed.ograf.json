@@ -1,0 +1,32 @@
+{
+	"$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+	"id": "ograf-nle-self-timed-fixture",
+	"version": "1.0.0",
+	"name": "Self-timed test graphic",
+	"description": "Test fixture: plays its own in/out timeline and ignores the schedule (like some Lottie exports).",
+	"main": "graphic.mjs",
+	"author": {
+		"name": "Yle"
+	},
+	"supportsRealTime": false,
+	"supportsNonRealTime": true,
+	"schema": {
+		"type": "object",
+		"properties": {
+			"text": {
+				"type": "string",
+				"title": "Text",
+				"default": "Self-timed"
+			}
+		}
+	},
+	"thumbnails": [
+		{
+			"file": "thumbnail.png",
+			"resolution": {
+				"width": 640,
+				"height": 360
+			}
+		}
+	]
+}

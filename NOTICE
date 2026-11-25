@@ -1,0 +1,25 @@
+OGraf renderer
+Copyright 2026 Yle
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+Documentation is licensed under Creative Commons Attribution 4.0 International
+(see LICENSES/CC-BY-4.0.txt).
+
+It is the headless, cloud-ready edition of the renderer of OGraf NLE (Yle's
+OGraf tools for Avid Media Composer and Adobe Premiere Pro).
+
+This product includes software developed by third parties:
+
+- OGraf DevTool, Copyright (c) 2025 SuperFly.tv
+  (https://github.com/SuperFlyTV/ograf-devtool), MIT License
+  (LICENSES/MIT.txt). Portions of its renderer are adapted in
+  runtime/render.js, and its "headline" sample graphic is used as a test
+  fixture (fixtures/graphics/headline, with its own licence file
+  fixtures/graphics/LICENSE-ograf-devtool).
+- lottie-web 5.12.2, Copyright Airbnb (https://github.com/airbnb/lottie-web),
+  MIT License, bundled inside the "headline" test fixture.
+- Puppeteer (https://github.com/puppeteer/puppeteer), Apache License 2.0.
+- pngjs (https://github.com/pngjs/pngjs), MIT License.
+
+The Docker image also contains Debian packages with their own licences,
+among them Chromium, FFmpeg and Node.js. THIRD-PARTY.md lists them.
