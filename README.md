@@ -37,17 +37,18 @@ render.json           what was rendered: graphic, data, format, schedule, timing
 
 ## Run it with Docker
 
+Ready-made images for amd64 and arm64 are on GitHub Container Registry: `ghcr.io/markusnygard/ograf-renderer`. Tags: `latest` and `X.Y.Z` for releases, `main` for the newest commit.
+
 ```sh
-docker build -t ograf-renderer .
 docker run --rm -p 8080:8080 \
   -e OGRAF_API_TOKEN=change-me \
   -v /path/to/graphics:/data/graphics \
   -v ograf-renders:/data/renders \
   --shm-size=1g \
-  ograf-renderer
+  ghcr.io/markusnygard/ograf-renderer:latest
 ```
 
-Or `docker compose up --build`, which serves the sample graphics in `fixtures/graphics`.
+To build it yourself: `docker build -t ograf-renderer .`. Or run `docker compose up --build`, which serves the sample graphics in `fixtures/graphics`.
 
 ```sh
 TOKEN=change-me
